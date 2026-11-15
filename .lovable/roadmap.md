@@ -1,0 +1,3 @@
+- [x] Set up secure profiles, dispatch records, sample resources, and authentication in Lovable Cloud.
+- [ ] Build LifeLine’s responsive emergency, driver, control-center, and hospital demo views with a clear simulation mode.
+- [ ] Verify the SOS and simulation flows, run focused tests, inspect build logs, and commit the completed work.

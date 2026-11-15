@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794762819733,
+      "tag": "0000_lifeline_profiles_and_dispatch",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794762980631,
+      "tag": "0001_lifeline_secure_staff_permissions",
+      "breakpoints": true
+    }
+  ]
+}

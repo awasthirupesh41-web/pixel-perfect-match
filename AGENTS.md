@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application architecture
+- Persist real user, emergency, dispatch, ambulance, hospital, and notification records in Lovable Cloud with row-level access rules; keep the public walkthrough explicitly simulated and separate from real emergency records so it cannot create real dispatches.

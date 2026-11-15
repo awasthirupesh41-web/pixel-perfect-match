@@ -1,0 +1,12 @@
+CREATE FUNCTION public.has_role(_user_id uuid, _role text) RETURNS boolean LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $$ SELECT EXISTS (SELECT 1 FROM public.user_roles WHERE user_id = _user_id AND role = _role) $$;
+REVOKE ALL ON FUNCTION public.has_role(uuid, text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.has_role(uuid, text) TO authenticated;
+DROP POLICY "Signed-in users can manage demo fleet" ON public.ambulances;
+CREATE POLICY "Only fleet staff can manage ambulances" ON public.ambulances FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'operator') OR public.has_role(auth.uid(), 'driver')) WITH CHECK (public.has_role(auth.uid(), 'operator') OR public.has_role(auth.uid(), 'driver'));
+DROP POLICY "Signed-in users can manage demo hospitals" ON public.hospitals;
+CREATE POLICY "Only hospital staff and operators can manage hospitals" ON public.hospitals FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'operator') OR public.has_role(auth.uid(), 'hospital')) WITH CHECK (public.has_role(auth.uid(), 'operator') OR public.has_role(auth.uid(), 'hospital'));
+CREATE POLICY "Drivers and operators can read all assignments" ON public.ambulance_assignments FOR SELECT TO authenticated USING (public.has_role(auth.uid(), 'driver') OR public.has_role(auth.uid(), 'operator'));
+CREATE POLICY "Drivers and operators can update assignments" ON public.ambulance_assignments FOR UPDATE TO authenticated USING (public.has_role(auth.uid(), 'driver') OR public.has_role(auth.uid(), 'operator')) WITH CHECK (public.has_role(auth.uid(), 'driver') OR public.has_role(auth.uid(), 'operator'));
+CREATE POLICY "Drivers and operators can view all emergency requests" ON public.emergency_requests FOR SELECT TO authenticated USING (public.has_role(auth.uid(), 'driver') OR public.has_role(auth.uid(), 'operator') OR public.has_role(auth.uid(), 'hospital'));
+CREATE POLICY "Drivers and operators can view all notifications" ON public.notifications FOR SELECT TO authenticated USING (public.has_role(auth.uid(), 'operator') OR public.has_role(auth.uid(), 'driver') OR public.has_role(auth.uid(), 'hospital'));
+CREATE POLICY "Drivers can update ambulance availability" ON public.ambulances FOR UPDATE TO authenticated USING (public.has_role(auth.uid(), 'driver') AND status IN ('available','busy','offline')) WITH CHECK (public.has_role(auth.uid(), 'driver'));

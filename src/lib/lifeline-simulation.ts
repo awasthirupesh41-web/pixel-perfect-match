@@ -19,9 +19,9 @@ export function closestAvailableUnit<T extends AvailableUnit>(
   origin: Coordinates,
   units: T[],
 ): T | null {
-  return units
+  return [...units]
     .filter((unit) => unit.status === "available")
-    .toSorted((a, b) => distanceKm(origin, a) - distanceKm(origin, b))[0] ?? null;
+    .sort((a, b) => distanceKm(origin, a) - distanceKm(origin, b))[0] ?? null;
 }
 
 export function estimateArrivalMinutes(distance: number): number {

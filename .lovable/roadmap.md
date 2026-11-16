@@ -1,3 +1,4 @@
 - [x] Set up secure profiles, dispatch records, sample resources, and authentication in Lovable Cloud.
+- [x] Restore the missing home page so `/` opens the LifeLine demonstration dashboard instead of a 404.
 - [ ] Build LifeLine’s responsive emergency, driver, control-center, and hospital demo views with a clear simulation mode.
-- [ ] Verify the SOS and simulation flows, run focused tests, inspect build logs, and commit the completed work.
+- [x] Verify the SOS simulation, routing test, preview build, and commit the 404 repair.
